@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My CSE Journey Roadmap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            /* Dark mode colors (default) */
+            --bg-dark: #0f172a;
+            --bg-darker: #020617;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --card-border: rgba(148, 163, 184, 0.2);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --timeline-color: #6366f1;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --status-learning: #4ade80;
+            --status-upcoming: #fbbf24;
+        }
+        /* Light mode overrides */
+        .light-mode {
+            --bg-dark: #f8fafc;
+            --bg-darker: #f1f5f9;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            --card-bg: rgba(255,255,255,0.7);
+            --card-border: rgba(148, 163, 184, 0.2);
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --timeline-color: #6366f1;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+            --status-learning: #16a34a;
+            --status-upcoming: #d97706;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+        /* Hero Section */
+        header.hero {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        header.hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0.15;
+            z-index: 0;
+        }
+        header.hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to right, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header.hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .start-btn {
+            display: inline-block;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0.9rem 2.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+        }
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(15deg);
+        }
+        /* Overall Progress Section */
+        section.overall-progress {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--bg-dark);
+        }
+        section.overall-progress h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .progress-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .progress-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .overall-progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .overall-progress-bar {
+            height: 100%;
+            background: var(--accent-gradient);
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+        .progress-number {
+            font-size: 2rem;
+            font-weight: 700;
+            min-width: 60px;
+            text-align: center;
+        }
+        /* Roadmap Section */
+        section#roadmap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+        section#roadmap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--timeline-color);
+            border-radius: 2px;
+        }
+        .roadmap-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+            clear: both;
+        }
+        .roadmap-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .roadmap-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            z-index: 3;
+            margin-top: 10px;
+        }
+        .roadmap-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 2rem;
+            max-width: 400px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+        .roadmap-item:nth-child(odd) .roadmap-content {
+            margin-left: 2rem;
+        }
+        .roadmap-item:nth-child(even) .roadmap-content {
+            margin-right: 2rem;
+        }
+        .roadmap-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .roadmap-content p.desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .roadmap-content .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .roadmap-item::after {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--timeline-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-darker);
+            z-index: 3;
+        }
+        /* New styles for meta, status, progress, topics */
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .status-badge {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+        }
+        .status-learning {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--status-learning);
+        }
+        .status-upcoming {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--status-upcoming);
+        }
+        .progress-container {
+            flex: 1;
+            min-width: 120px;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-gradient);
+            width: 0;
+            transition: width 0.6s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem;
+            min-width: 40px;
+            text-align: right;
+        }
+        .view-topics-btn {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .view-topics-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.4);
+        }
+        .topics-list {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+        }
+        .topics-list li {
+            margin-bottom: 0.4rem;
+            color: var(--text-secondary);
+            position: relative;
+        }
+        .topics-list li::before {
+            content: "▹";
+            position: absolute;
+            left: -1.2rem;
+            color: #6366f1;
+        }
+        /* Future Goals Section */
+        section.future-goals {
+            padding: 4rem 2rem;
+            background: var(--bg-dark);
+        }
+        section.future-goals h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .goals-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .goal-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: left;
+            transition: var(--transition);
+        }
+        .goal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(148,163,184,0.4);
+        }
+        .goal-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: #6366f1;
+        }
+        .goal-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .goal-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            header.hero h1 {
+                font-size: 2.2rem;
+            }
+            section#roadmap::before {
+                left: 20px;
+            }
+            .roadmap-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .roadmap-item:nth-child(even) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .roadmap-content {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-top: 1.5rem;
+                max-width: 100%;
+            }
+            .roadmap-icon {
+                margin-top: 0;
+                margin-bottom: 1rem;
+            }
+            .roadmap-item::after {
+                left: 20px;
+                top: auto;
+                bottom: -8px;
+                transform: translateX(0);
+            }
+            .meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .progress-container {
+                min-width: 100%;
+            }
+            .goals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .roadmap-item,
+        header.hero,
+        section.overall-progress,
+        section.future-goals {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        header.hero { animation-delay: 0.1s; }
+        section.overall-progress { animation-delay: 0.2s; }
+        section#roadmap { animation-delay: 0.3s; }
+        .roadmap-item:nth-child(1) { animation-delay: 0.4s; }
+        .roadmap-item:nth-child(2) { animation-delay: 0.5s; }
+        .roadmap-item:nth-child(3) { animation-delay: 0.6s; }
+        .roadmap-item:nth-child(4) { animation-delay: 0.7s; }
+        .roadmap-item:nth-child(5) { animation-delay: 0.8s; }
+        .roadmap-item:nth-child(6) { animation-delay: 0.9s; }
+        section.future-goals { animation-delay: 1.0s; }
+        /* Hover effect on cards */
+        .roadmap-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <h1>My CSE Journey Roadmap</h1>
+        <p>From fundamentals to frontier — track my growth as a first-year Computer Science Engineering student.</p>
+        <a href="#roadmap" class="start-btn">Start my Journey</a>
+    </header>
+
+    <!-- Overall Progress Section -->
+    <section class="overall-progress" id="overall-progress">
+        <h2><i class="fas fa-chart-line"></i> My Overall Progress</h2>
+        <div class="progress-wrapper">
+            <div class="progress-label">Overall Completion</div>
+            <div class="overall-progress-bar-container">
+                <div class="overall-progress-bar"></div>
+            </div>
+            <div class="progress-number" id="progress-number">0%</div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap" id="roadmap">
+        <!-- Milestone 1 -->
+        <div class="roadmap-item">
+            <div class="roadmap-icon">01</div>
+            <div class="roadmap-content">
+                <h3><i class="fas fa-cogs"></i> Computing Systems & Development Tools</h3>
+                <div class="meta">
+                    <span class="status-badge status-learning">Learning</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="30"></div>
+                    </div>
+                    <span class="progress-text">30%</span>
+                </div>
+                <p class="desc">Exploring computer architecture, operating systems, and essential developer tools like Git, Bash, and IDEs.</p>
+                <button class="view-topics-btn">View Topics</button>
+                <ul class="topics-list" style="display:none;">
+                    <li>Computer fundamentals</li>
+                    <li>Operating systems</li>
+                    <li>Git & Github</li>
+                    <li>Development environments</li>
+                    <li>Command line/terminal</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="roadmap-item">
+            <div class="roadmap-icon">02</div>
+            <div class="roadmap-content">
+                <h3><i class="fas fa-rocket"></i> Problem Solving using Programming</h3>
+                <div class="meta">
+                    <span class="status-badge status-learning">Learning</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="45"></div>
+                    </div>
+                    <span class="progress-text">45%</span>
+                </div>
+                <p class="desc">Mastering algorithmic thinking, data structures, and problem-solving techniques using Python and C++.</p>
+                <button class="view-topics-btn">View Topics</button>
+                <ul class="topics-list" style="display:none;">
+                    <li>Programming fundamentals</li>
+                    <li>Variables and data types</li>
+                    <li>Conditions and loops</li>
+                    <li>Functions</li>
+                    <li>Problem solving</li>
+                    <li>Basic data structures</li>
+                    <li>Algorithms</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="roadmap-item">
+            <div class="roadmap-icon">03</div>
+            <div class="roadmap-content">
+                <h3><i class="fas fa-sitemap"></i> System Design Basics</h3>
+                <div class="meta">
+                    <span class="status-badge status-upcoming">Upcoming</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="10"></div>
+                    </div>
+                    <span class="progress-text">10%</span>
+                </div>
+                <p class="desc">Introduction to scalable systems, APIs, databases, and cloud fundamentals.</p>
+                <button class="view-topics-btn">View Topics</button>
+                <ul class="topics-list" style="display:none;">
+                    <li>What is system design?</li>
+                    <li>Client server architecture</li>
+                    <li>APIs</li>
+                    <li>Databases</li>
+                    <li>Scalability basics</li>
+                    <li>System components</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Milestone 4 -->
+        <div class="roadmap-item">
+            <div class="roadmap-icon">04</div>
+            <div class="roadmap-content">
+                <h3><i class="fas fa-paint-brush"></i> Front End Web Development</h3>
+                <div class="meta">
+                    <span class="status-badge status-learning">Learning</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="40"></div>
+                    </div>
+                    <span class="progress-text">40%</span>
+                </div>
+                <p class="desc">Building responsive, interactive websites with HTML, CSS, JavaScript, and modern frameworks.</p>
+                <button class="view-topics-btn">View Topics</button>
+                <ul class="topics-list" style="display:none;">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Responsive design</li>
+                    <li>DOM</li>
+                    <li>Web projects</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Milestone 5 -->
+        <div class="roadmap-item">
+            <div class="roadmap-icon">05</div>
+            <div class="roadmap-content">
+                <h3><i class="fas fa-brain"></i> Foundations of Generative AI</h3>
+                <div class="meta">
+                    <span class="status-badge status-upcoming">Upcoming</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="20"></div>
+                    </div>
+                    <span class="progress-text">20%</span>
+                </div>
+                <p class="desc">Understanding LLMs, prompt engineering, and ethical AI applications.</p>
+                <button class="view-topics-btn">View Topics</button>
+                <ul class="topics-list" style="display:none;">
+                    <li>What is AI?</li>
+                    <li>Machine learning basics</li>
+                    <li>Generative AI</li>
+                    <li>Large Language Models</li>
+                    <li>Prompt Engineering</li>
+                    <li>AI applications</li>
+                    <li>AI ethics</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Milestone 6 -->
+        <div class="roadmap-item">
+            <div class="roadmap-icon">06</div>
+            <div class="roadmap-content">
+                <h3><i class="fas fa-handshake"></i> Professional Communication & Collaboration</h3>
+                <div class="meta">
+                    <span class="status-badge status-upcoming">Upcoming</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="15"></div>
+                    </div>
+                    <span class="progress-text">15%</span>
+                </div>
+                <p class="desc">Developing teamwork, presentation skills, and technical documentation practices.</p>
+                <button class="view-topics-btn">View Topics</button>
+                <ul class="topics-list" style="display:none;">
+                    <li>Communication skills</li>
+                    <li>Teamwork</li>
+                    <li>Presentation skills</li>
+                    <li>Technical writing</li>
+                    <li>GitHub collaboration</li>
+                    <li>Hackathons</li>
+                    <li>Interview Preparation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Goals Section -->
+    <section class="future-goals" id="future-goals">
+        <h2><i class="fas fa-rocket"></i> My Future Goals</h2>
+        <div class="goals-grid">
+            <div class="goal-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Build Real World Projects</h3>
+                <p>Create full‑stack applications that solve real problems and showcase my skills.</p>
+            </div>
+            <div class="goal-card">
+                <i class="fas fa-fire"></i>
+                <h3>Participate in Hackathons</h3>
+                <p>Collaborate with peers, learn new technologies, and build innovative solutions under time constraints.</p>
+            </div>
+            <div class="goal-card">
+                <i class="fab fa-github"></i>
+                <h3>Build a Strong GitHub Profile</h3>
+                <p>Maintain clean, well‑documented repositories with meaningful contributions and active collaboration.</p>
+            </div>
+            <div class="goal-card">
+                <i class="fas fa-brain"></i>
+                <h3>Learn AI/ML</h3>
+                <p>Deepen my understanding of machine learning, neural networks, and AI ethics.</p>
+            </div>
+            <div class="goal-card">
+                <i class="fas fa-briefcase"></i>
+                <h3>Get Internship Experience</h3>
+                <p>Apply classroom knowledge in a professional setting and gain industry exposure.</p>
+            </div>
+            <div class="goal-card">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>Prepare for Placements</h3>
+                <p>Sharpen coding interview skills, practice system design, and refine my resume.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            const rootEl = document.documentElement; // <html>
+            themeToggle.addEventListener('click', function() {
+                const isLight = rootEl.classList.toggle('light-mode');
+                // Change icon
+                const icon = this.querySelector('i');
+                if (isLight) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    this.setAttribute('aria-label', 'Switch to dark mode');
+                    this.setAttribute('title', 'Switch to dark mode');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    this.setAttribute('aria-label', 'Switch to light mode');
+                    this.setAttribute('title', 'Switch to light mode');
+                }
+            });
+
+            // View topics toggle
+            const viewButtons = document.querySelectorAll('.view-topics-btn');
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const list = this.nextElementSibling; // ul.topics-list
+                    if (list.style.display === 'none' || list.style.display === '') {
+                        list.style.display = 'block';
+                        this.textContent = 'Hide Topics';
+                    } else {
+                        list.style.display = 'none';
+                        this.textContent = 'View Topics';
+                    }
+                });
+            });
+
+            // Animate progress bars (roadmap and overall)
+            function animateProgressBars() {
+                // Roadmap progress bars
+                document.querySelectorAll('.roadmap-content .progress-bar').forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-width');
+                    // Trigger reflow to ensure transition works
+                    bar.style.width = '0%';
+                    // Use timeout to let browser paint initial state
+                    requestAnimationFrame(() => {
+                        bar.style.width = targetWidth + '%';
+                    });
+                });
+                // Overall progress bar
+                const overallBar = document.querySelector('.overall-progress-bar');
+                const progressNumbers = [30,45,10,40,20,15];
+                const overall = Math.round((progressNumbers.reduce((a,b)=>a+b,0))/progressNumbers.length);
+                overallBar.style.width = '0%';
+                requestAnimationFrame(() => {
+                    overallBar.style.width = overall + '%';
+                });
+                // Animate the number counter
+                const numberEl = document.getElementById('progress-number');
+                let current = 0;
+                const duration = 1500; // ms
+                const startTime = performance.now();
+                function step(timestamp) {
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.floor(progress * overall);
+                    numberEl.textContent = value + '%';
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        numberEl.textContent = overall + '%';
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+            // Run after a short delay to ensure elements are visible
+            setTimeout(animateProgressBars, 500);
+        });
+    </script>
+</body>
+</html>
